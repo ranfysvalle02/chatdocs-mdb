@@ -141,23 +141,9 @@ def does_vectorstore_exist(persist_directory: str) -> bool:
 
 
 def add(config: Dict[str, Any], source_directory: str) -> None:
-    persist_directory = config["chroma"]["persist_directory"]
-    if does_vectorstore_exist(persist_directory):
-        # Update and store locally vectorstore
-        print(f"Appending to existing vectorstore at {persist_directory}")
-        db = get_vectorstore(config)
-        collection = db.get()
-        texts = process_documents(
-            source_directory,
-            [metadata["source"] for metadata in collection["metadatas"]],
-        )
-        print(f"Creating embeddings. May take a few minutes...")
-        db.add_documents(texts)
-    else:
-        # Create and store locally vectorstore
-        print("Creating new vectorstore")
-        texts = process_documents(source_directory)
-        print(f"Creating embeddings. May take a few minutes...")
-        db = get_vectorstore_from_documents(config, texts)
-    db.persist()
-    db = None
+    # Create and store locally vectorstore
+    print("Creating new vectorstore")
+    texts = process_documents(source_directory)
+    print(f"Creating embeddings. May take a few minutes...")
+    db = get_vectorstore_from_documents(config, texts)
+    
