@@ -43,7 +43,8 @@ Chat with your documents offline using AI. No data leaves your system. Internet 
 Install the tool using:
 
 ```sh
-pip install chatdocs
+pip uninstall chatdocs  
+pip install ./
 ```
 
 Download the AI models using:
